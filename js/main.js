@@ -8,8 +8,8 @@ const scoredisplay = document.getElementById('score')
 
 const paddleSpeed = 20
 let gameRunning = false
-let ballSpeedX = 2
-let ballSpeedY = -2
+let ballSpeedX = 4
+let ballSpeedY = -4
 let score = 0
 
 const gamewidth = gamearea.clientWidth
@@ -42,23 +42,50 @@ document.addEventListener('keydown', event => {
         currentX = position
         paddle.style.transform = `translateX(${position}px)`
     }
-    moveBallWithPaddle()
+    if (!gameRunning) {
+        moveBallWithPaddle()
+    }
+
 })
 
 let gameheight = gamearea.clientHeight
 let ballwidth = ball.offsetWidth
 let paddleheight = paddle.clientHeight
 let ballX = 0
-let ballY = gameheight - paddleheight - ballwidth -20
+let ballY = gameheight - paddleheight - ballwidth - 20
 
-function moveBallWithPaddle(){
-    ballX =  currentX + paddlewidth/2 - ballwidth/2
+function moveBallWithPaddle() {
+    ballX = currentX + paddlewidth / 2 - ballwidth / 2
     ball.style.transform = `translate(${ballX}px, ${ballY}px)`;
 }
 
 moveBallWithPaddle()
 
+let animationID
+function gameloop() {
+    if (gameRunning) {
+        ballX += ballSpeedX
+        ballY += ballSpeedY
+        if (ballX + ballwidth >= gamewidth || ballX<= 0) {
+            ballSpeedX *= -1
+        }
 
- function move(){
-    
- }
+        if (ballY <= 0) {
+            ballSpeedY *= -1
+        }
+
+        if (ballY + ballwidth >= gameheight) {
+            ballSpeedY *= -1
+        }
+        ball.style.transform = `translate(${ballX}px,${ballY}px)`
+    }
+
+    animationID = requestAnimationFrame(gameloop)
+}
+animationID = requestAnimationFrame(gameloop)
+document.addEventListener('keydown', event => {
+    if (event.code === 'Space' && !gameRunning) {
+        gameRunning = true
+        startmessege.style.display = 'none'
+    }
+})

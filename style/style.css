@@ -62,8 +62,8 @@ body {
     background-color: #0f0; /* لون خضر يلا ماكانتش تصويرة */
     position: absolute;
     bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%); /* كيبدا فالوسط */
+    left: 0px;
+    /* كيبدا فالوسط */
     border-radius: 10px;
 
     /* هنا دير سمية تصويرة البادل */
@@ -78,9 +78,9 @@ body {
     background-color: red; /* لون حمر يلا ماكانتش تصويرة */
     border-radius: 50%; /* باش تولي مدورة */
     position: absolute;
-    bottom: 40px; /* فوق البادل بشوية */
-    left: 50%;
-    transform: translateX(-50%);
+    top : 0px; /* فوق البادل بشوية */
+    left: 0px;
+   
 
     /* هنا دير سمية تصويرة الكرة */
     background-image: url('ball.png');
