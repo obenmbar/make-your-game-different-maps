@@ -11,7 +11,7 @@ let gameRunning = false
 let ballSpeedX = 4
 let ballSpeedY = -4
 let score = 0
-
+let isResetting = false
 const gamewidth = gamearea.clientWidth
 let paddlewidth = paddle.offsetWidth
 let startposition = (gamewidth - paddlewidth) / 2
@@ -111,14 +111,15 @@ function gameloop() {
         }
 
         if (ballY + ballwidth >= gameheight) {
-           lives--
-           livesdisplay.innerText = '❤️'.repeat(lives);
-           if(lives === 0){
-            alert('Game Over')
-            document.location.reload()
-           }else{
-            resetBall()
-           }
+            lives--
+            livesdisplay.innerText = '❤️'.repeat(lives);
+
+            if (lives === 0) {
+                alert('Game Over')
+                document.location.reload()
+            } else {
+                resetBall()
+            }
         }
 
         if (ballY + ballwidth >= paddleTopEdge && ballX + ballwidth >= currentX && ballX <= currentX + paddlewidth) {
@@ -146,7 +147,7 @@ function gameloop() {
 }
 animationID = requestAnimationFrame(gameloop)
 document.addEventListener('keydown', event => {
-    if (event.code === 'Space' && !gameRunning) {
+    if (event.code === 'Space' && !gameRunning && !isResetting) {
         gameRunning = true
         startmessege.style.display = 'none'
     }
@@ -166,8 +167,10 @@ function collisionDetection() {
                         ballSpeedX = -Math.abs(ballSpeedX)
                     } else if ((overlapRight < overlapTop && overlapRight < overlapBottom && overlapRight < overlapLeft)) {
                         ballSpeedX = Math.abs(ballSpeedX)
+                    } else {
+                        ballSpeedY *= -1
+
                     }
-                    ballSpeedY *= -1
 
 
 
@@ -175,9 +178,16 @@ function collisionDetection() {
                     const removebrick = document.getElementById(`brick${c}-${r}`)
                     if (removebrick) {
                         removebrick.style.display = 'none';
+
                     }
                     score++
                     scoredisplay.innerText = score
+                }
+                const totalBricks = brickColumnCount * brickRowCount
+                if (totalBricks === score) {
+                    gameRunning = false
+                    alert('"YOU WIN! BRAVO 3LIK! 🎉"')
+                    document.location.reload()
                 }
             }
         }
@@ -188,17 +198,21 @@ const livesdisplay = document.getElementById('lives')
 let lives = 3
 function resetBall() {
     gameRunning = false
+    isResetting = true
     currentX = startposition
+    ballY = gameheight - paddleheight - ballwidth - 20;
     paddle.style.transform = `translateX(${currentX}px)`
+    moveBallWithPaddle()
     startmessege.style.display = 'block'
     startmessege.innerText = "Ready? 3..."
     setTimeout(() => startmessege.innerText = "Set... 2...", 1000)
-    setTimeout(() => startmessege.innerText = "Go! 1...", 200);
+    setTimeout(() => startmessege.innerText = "Go! 1...", 2000);
     setTimeout(() => {
         startmessege.style.display = 'none'
         startmessege.innerText = "Press Space to Start"
         ballSpeedX = 4
         ballSpeedY = -4
-        gameRunning = true ;
+        isResetting = false
+        gameRunning = true;
     }, 3000)
 }
