@@ -4,7 +4,7 @@
 import { state } from './gameState.js';
 
 import { BRICK_WIDTH, BRICK_HEIGHT, BRICK_ROW_COUNT } from './constants.js';
-import { updateScore, updatelevel } from './ui.js';
+import { updateScore, updatelevel,showModal} from './ui.js';
 import { initBricks, resetPositions } from './entities.js';
 import { handleResetSequence } from './main.js'
 const gameArea = document.getElementById('game-area');
@@ -48,7 +48,7 @@ export function detectCollision(ballWidth) {
                     b.status--;
 
 
-                    const brickElement = document.getElementById(`brick${c}-${r}`);
+                    const brickElement = b.element
                     if (brickElement) {
                         if (b.status === 0) {
                             brickElement.style.display = 'none';
@@ -77,17 +77,21 @@ export function detectCollision(ballWidth) {
                             state.ballSpeedY = -baseSpeed;
                             state.ballSpeedX *= 1.2;
 
-                            if (state.currentLevel === 2) state.timerSecond = 200;
-                            if (state.currentLevel === 3) state.timerSecond = 260;
+                            if (state.currentLevel === 2) state.timerSecond = 300;
+                            if (state.currentLevel === 3) state.timerSecond = 400;
 
-                          
+
 
                             resetPositions(ball, paddle, gameArea.clientWidth, gameArea.clientHeight);
                             handleResetSequence(true)
                         } else {
                             state.gameRunning = false;
-                            alert('"YOU WIN! BRAVO 3LIK! 🎉"');
-                            document.location.reload();
+                            showModal(
+                                "VICTORY!",
+                                "Legendary! You saved the Planet Namek.",
+                                "PLAY AGAIN",
+                                () => document.location.reload()
+                            );
                         }
 
                         state.totalbrick = 0
