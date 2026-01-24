@@ -1,20 +1,43 @@
-# 🐉 Dragon Ball Z: DOM Breaker
+Markdown<div align="center">
 
-![Game Banner](https://media1.tenor.com/m/fXjXyN_-CukAAAAC/dragon-ball-z-dbz.gif)
+  # 🐉 Dragon Ball Z: DOM Breaker
+  
+  ![Game Banner](https://media1.tenor.com/m/fXjXyN_-CukAAAAC/dragon-ball-z-dbz.gif)
 
-> *"With the passing of time and evolution of technology, the human brain has been requesting more and more stimuli... Boredom happens whenever people don't receive enough of these stimuli."*
+  ### **A High-Performance Vanilla JS Experiment**
+  
+  <p>
+    <a href="https://othmanebenmbarek.netlify.app/">
+      <img src="https://img.shields.io/badge/PLAY%20NOW-Click%20Here%20To%20Start-red?style=for-the-badge&logo=google-play&logoColor=white" alt="Play Game" />
+    </a>
+  </p>
 
-You are not receiving enough stimuli. **Planet Namek is in danger.** Frieza is approaching. And the only way to save the universe (and cure your boredom) is to code your own game engine in **Vanilla JavaScript**.
+  ![Netlify Status](https://api.netlify.com/api/v1/badges/b5b8276f-0925-4c72-97d8-3453d8654637/deploy-status)
+  ![Language](https://img.shields.io/badge/Language-Vanilla%20JS-yellow?style=flat-square)
+  ![FPS](https://img.shields.io/badge/Performance-60%20FPS-green?style=flat-square)
+  ![Size](https://img.shields.io/badge/Size-Lightweight-blue?style=flat-square)
 
-**Target: 60 FPS. No Frame Drops. No Canvas. Just pure DOM power.**
+</div>
 
 ---
 
 ## 🚀 About The Project
 
+> *"With the passing of time... Boredom happens whenever people don't receive enough stimuli."*
+
+You are not receiving enough stimuli. **Planet Namek is in danger.** Frieza is approaching. And the only way to save the universe (and cure your boredom) is to code your own game engine in **Vanilla JavaScript**.
+
+**Target: 60 FPS. No Frame Drops. No Canvas. Just pure DOM power.**
+
 This is a **Brick Breaker (Arkanoid)** style game set in the Dragon Ball Z universe. It was built as a performance challenge to master the **DOM**, **Event Loops**, and **Browser Rendering** optimization.
 
-Unlike modern web games that use `<canvas>` or WebGL, **this game uses standard HTML DIVs** for everything (Player, Ball, Bricks). The challenge was to achieve a buttery smooth **60 FPS** without "Jank" or stuttering, using only the CPU and the DOM tree.
+---
+
+## 🎮 Play The Game
+
+Don't want to install anything? Play the live version hosted on Netlify:
+
+### [👉 Click Here to Play on Planet Namek](https://othmanebenmbarek.netlify.app/)
 
 ---
 
@@ -36,34 +59,14 @@ Your journey follows the classic battles of Dragon Ball Z. Can you survive all t
 
 ---
 
-## 🌟 Key Features
-* **🏎️ 60 FPS or Nothing:** Optimized using `requestAnimationFrame` for smooth rendering.
-* **🧱 Pure DOM Manipulation:** No canvas, no frameworks. Just raw JavaScript.
-* **🔥 DBZ Themed Levels:** Progressive difficulty with armored bricks.
-* **⏸️ Game State Management:** Pause, Restart, and Continue at any time.
-* **📊 Live HUD:** Real-time tracking of **Score**, **Lives**, and **Time**.
-
----
-
-## 🎮 Gameplay Preview
-
-| **The Mission** | **The Enemy** |
-|:---:|:---:|
-| ![Gameplay](https://media.tenor.com/bL_lM0G6QJAAAAAi/goku-shenron.gif) | ![Frieza](https://media.tenor.com/yN_4EnZqaY8AAAAi/frieza-this-isnt-even-my-final-form.gif) |
-| *Control Goku's Paddle* | *Destroy Frieza's Defenses* |
-
-*(Note: Add your own gameplay screenshots here in the `assets/screenshots` folder)*
-
----
-
 ## 🛠️ Technical Specs (The Challenge)
 
 This project strictly adheres to the following constraints:
 
--   [x] **No Canvas / No WebGL:** All rendering is done via CSS manipulation (`transform`, `top`, `left`).
--   [x] **Performance First:** Heavy use of Chrome DevTools (Performance Tab) to ensure scripts execute under **16.6ms** per frame.
--   [x] **Input Handling:** Smooth keyboard controls (no key spamming required).
--   [x] **Memory Management:** Minimal object creation during the game loop to avoid Garbage Collection pauses.
+- [x] **No Canvas / No WebGL:** All rendering is done via CSS manipulation (`transform`, `top`, `left`).
+- [x] **Performance First:** Heavy use of Chrome DevTools (Performance Tab) to ensure scripts execute under **16.6ms** per frame.
+- [x] **Input Handling:** Smooth keyboard controls (no key spamming required).
+- [x] **Memory Management:** Minimal object creation during the game loop to avoid Garbage Collection pauses.
 
 ### Code Snippet: The Game Loop
 ```javascript
@@ -79,6 +82,6 @@ function gameLoop(timestamp) {
     lastTime = timestamp;
     window.requestAnimationFrame(gameLoop);
 }
-🕹️ ControlsKeyAction⬅️ Left ArrowMove Goku Left➡️ Right ArrowMove Goku RightSPACELaunch Spirit Bomb (Ball)PPause / Resume GameRRestart Mission📦 How to RunClone the repository:Bashgit clone https://github.com/obenmbar/make-your-game-history.git
-Navigate to the folder:Bashcd make-your-game
-Launch:Simply double-click index.html to open it in your browser.🏆 Status👨‍💻 AuthorCreated by Othmane Benmbarek"This isn't even my final form!" - Frieza (and probably this code)
+🕹️ ControlsKeyAction⬅️ Left ArrowMove Goku Left➡️ Right ArrowMove Goku RightSPACELaunch Spirit Bomb (Ball)PPause / Resume GameRRestart Mission📦 How to Run LocallyIf you want to look at the code or run it on your machine:Clone the repository:Bashgit clone [https://github.com/obenmbar/make-your-game-history.git](https://github.com/obenmbar/make-your-game-history.git)
+Navigate to the folder:Bashcd make-your-game-history
+Launch:Simply double-click index.html to open it in your browser.🏆 Status<div align="center">👨‍💻 AuthorCreated by Othmane Benmbarek"This isn't even my final form!" - Frieza (and probably this code)</div>
