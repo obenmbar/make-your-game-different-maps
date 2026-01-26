@@ -14,6 +14,8 @@ const paddle = document.getElementById('paddle');
 const startmessege = document.getElementById('start-message')
 export function detectCollision(ballWidth) {
     let collisionHandled = false
+    const previousBallX = state.ballX - state.ballSpeedX;
+
     for (let c = 0; c < state.brickColumnCount; c++) {
         for (let r = 0; r < BRICK_ROW_COUNT; r++) {
 
@@ -31,19 +33,14 @@ export function detectCollision(ballWidth) {
                 ) {
                     if (!collisionHandled) {
 
-                        let overlapLeft = (state.ballX + ballWidth) - b.x;
-                        let overlapRight = (b.x + BRICK_WIDTH) - state.ballX;
-                        let overlapTop = (state.ballY + ballWidth) - b.y;
-                        let overlapBottom = (b.y + BRICK_HEIGHT) - state.ballY;
-
-
-                        if (overlapLeft < overlapBottom && overlapLeft < overlapRight && overlapLeft < overlapTop) {
-                            state.ballSpeedX = -Math.abs(state.ballSpeedX);
-                        } else if (overlapRight < overlapTop && overlapRight < overlapBottom && overlapRight < overlapLeft) {
-                            state.ballSpeedX = Math.abs(state.ballSpeedX);
-                        } else {
-                            state.ballSpeedY *= -1;
+                      if (previousBallX + ballWidth <= b.x || previousBallX >= b.x + BRICK_WIDTH) {
+                             state.ballSpeedX *= -1; 
+                        } 
+                     
+                        else {
+                             state.ballSpeedY *= -1; 
                         }
+                        
                         collisionHandled = true 
                     }
 
