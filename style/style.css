@@ -173,13 +173,13 @@ body {
 }
 
 #pause_continue_messege {
-   display: none;
+    display: none;
     position: absolute;
 
-    bottom: 10%; 
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
-    
+
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -297,54 +297,80 @@ body {
     background-color: #fff;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+
+
+    #game-area {
+        top: 0;
+        width: 95%;
+        height: 55vh;
+        max-width: none;
+        margin: 0 auto;
+        border: 2px solid #fff;
+    }
 
 
     #start-message {
-        
-    }
-    #pause_continue_messege {
-        position: absolute;
-        bottom: 10px;
+        top: 65%;
         width: 90%;
+        font-size: 18px;
+
+    }
+
+
+    #pause_continue_messege {
+        bottom: 5vh;
         font-size: 16px;
-        padding: 15px;
+        padding: 10px;
+        width: 80%;
+        background: rgba(0, 0, 0, 0.85);
+        border: 1px solid #ffcc00;
     }
 
 
-    #score-board,
-    #level,
-    #timer {
-        font-size: 14px;
-    }
-
-    #score-board {
-        left: 10px;
-        top: 5px;
-    }
-
-    #level {
-        left: 10px;
-        top: 25px;
-
-
-        right: auto;
-        transform: none;
-    }
-
-    #timer {
-
-        top: 10px;
-    }
-
-
-    #lives {
-        top: 5px;
-        right: 5px;
-        transform: scale(0.6);
-        transform-origin: top right;
-    }
-    #footer-socials{
+    #footer-socials {
         display: none;
+    }
+
+#game-stats {
+        width: 100%;
+        display: flex;            
+        justify-content: space-between; 
+        align-items: center;      
+        padding: 0 10px;          
+        
+        
+        transform: none; 
+        top: 5px;
+    }
+
+   
+    #score-board, 
+    #level, 
+    #timer, 
+    #lives {
+        position: relative;  
+        left: auto;          
+        right: auto;
+        top: auto;
+        transform: none;     
+        
+        font-size: 12px;     
+        margin: 0;           
+    }
+
+    
+    #level {
+  color: #ff0000;
+    }
+    
+    
+    
+
+    #timer {
+        color: #ffcc00; 
+    }
+    #lives {
+        right: 2px;
     }
 }
