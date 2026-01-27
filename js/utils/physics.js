@@ -6,12 +6,18 @@ import { state, } from './gameState.js';
 import { BRICK_WIDTH, BRICK_HEIGHT, BRICK_ROW_COUNT, STORY } from './constants.js';
 import { updateScore, updatelevel, showModal } from './ui.js';
 import { initBricks, resetPositions } from './entities.js';
-
+import * as nki from '../main.js'
 const gameArea = document.getElementById('game-area');
 const brickContainer = document.getElementById('bricks-container');
 const ball = document.getElementById('ball');
 const paddle = document.getElementById('paddle');
 const startmessege = document.getElementById('start-message')
+const winmusic = document.getElementById('win-music')
+const blowingup = document.getElementById('blowingup')
+export const dragonmusic = document.getElementById('dragon')
+console.log(dragonmusic.volueme)
+
+blowingup.volume = 0.5
 export function detectCollision(ballWidth) {
     let collisionHandled = false
     const previousBallX = state.ballX - state.ballSpeedX;
@@ -33,26 +39,28 @@ export function detectCollision(ballWidth) {
                 ) {
                     if (!collisionHandled) {
 
-                      if (previousBallX + ballWidth <= b.x || previousBallX >= b.x + BRICK_WIDTH) {
-                             state.ballSpeedX *= -1; 
-                        } 
-                     
-                        else {
-                             state.ballSpeedY *= -1; 
+                        if (previousBallX + ballWidth <= b.x || previousBallX >= b.x + BRICK_WIDTH) {
+                            state.ballSpeedX *= -1;
                         }
-                        
-                        collisionHandled = true 
+
+                        else {
+                            state.ballSpeedY *= -1;
+                        }
+
+                        collisionHandled = true
                     }
 
 
 
                     b.status--;
-
-
+                    blowingup.currentTime =0
+                    blowingup.play()
+                  
                     const brickElement = b.element
                     if (brickElement) {
                         if (b.status === 0) {
                             brickElement.style.display = 'none';
+
                             state.totalbrick++
                         } else if (b.status === 1) {
                             brickElement.className = 'brick'
@@ -104,6 +112,8 @@ export function detectCollision(ballWidth) {
                             );
 
                         } else {
+                            nki.stopMusic()
+                            winmusic.play()
                             showModal(
                                 STORY.WIN.title,
                                 STORY.WIN.text,
@@ -113,7 +123,7 @@ export function detectCollision(ballWidth) {
                         }
                         return;
                     }
-                    
+
                 }
             }
         }
@@ -129,7 +139,8 @@ export function handleBallPaddleCollision(paddleTopEdge, currentPaddleX, paddleW
         state.ballX + ballWidth >= currentPaddleX &&
         state.ballX <= currentPaddleX + paddleWidth
     ) {
-
+         dragonmusic.currentTime =  0
+         dragonmusic.play()
         state.ballSpeedY = -Math.abs(state.ballSpeedY);
 
 
