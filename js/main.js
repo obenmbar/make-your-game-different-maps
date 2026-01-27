@@ -10,6 +10,10 @@ export const paddle = document.getElementById('paddle');
 export const ball = document.getElementById('ball');
 export const brickContainer = document.getElementById('bricks-container');
 export const conpausediv = document.getElementById('pause_continue_messege')
+export const music = document.getElementById('bg-music')
+ export const loosmusic = document.getElementById('loos-music')
+ const khsarmusic =  document.getElementById('khsara')
+music.volume = 0.4
 
 Entities.initBricks(gameArea.clientWidth, brickContainer);
 Entities.resetPositions(ball, paddle, gameArea.clientWidth, gameArea.clientHeight);
@@ -22,8 +26,8 @@ window.onload = () => {
         STORY.INTRO.text,
         STORY.INTRO.btn,
         () => {
-         UI.modal.style.display = 'none'
-          state.showstory = true
+            UI.modal.style.display = 'none'
+            state.showstory = true
         }
     );
 };
@@ -67,13 +71,13 @@ export function handleResetSequence(isNewLevel = false) {
 document.addEventListener('keydown', (e) => {
 
     if (state.isResetting) return;
-    if(!state.showstory)return;
+    if (!state.showstory) return;
 
     if (e.key === 'ArrowRight' || e.code === 'KeyD') state.rightPressed = true;
     if (e.key === 'ArrowLeft' || e.code === 'KeyA') state.leftPressed = true;
 
     if (e.code === 'Space') {
-
+        playMusic()
         if (!state.gameRunning && !state.isResetting && state.showstory) {
             handleResetSequence(true);
             conpausediv.style.display = 'block'
@@ -82,8 +86,10 @@ document.addEventListener('keydown', (e) => {
             state.isPaused = !state.isPaused
 
             if (state.isPaused && state.showstory) {
+                stopMusic()
                 conpausediv.innerText = 'Press Space to Continue'
-            } else if(state.showstory) {
+            } else if (state.showstory) {
+                playMusic()
                 conpausediv.innerText = 'Press Space to Pause'
 
             }
@@ -130,6 +136,8 @@ function gameLoop() {
 
 
             if (state.ballX + ball.offsetWidth >= gameArea.clientWidth || state.ballX <= 0) {
+                Physics.dragonmusic.currentTime =0
+                Physics.dragonmusic.play()
                 if (state.ballX <= 0) {
                     state.ballX = 0;
                 } else {
@@ -139,6 +147,8 @@ function gameLoop() {
                 state.ballSpeedX *= -1;
             }
             if (state.ballY <= 0) {
+                Physics.dragonmusic.currentTime =0
+                Physics.dragonmusic.play()
                 state.ballSpeedY *= -1;
             }
 
@@ -150,32 +160,38 @@ function gameLoop() {
                 UI.displayLives();
 
                 if (state.lives === 0) {
-                    state.gameRunning = false,
-                    state.showstory = false
-                        UI.showModal(
-                              STORY.LOSE.title,
-                              STORY.LOSE.text,
-                              STORY.LOSE.btn,
-                        ()=>{
-                            document.location.reload()
-                 
-                        }
-                        );
-                } else {
+                    stopMusic()
+                    loosmusic.play()
 
+                    state.gameRunning = false,
+                        state.showstory = false
+                    UI.showModal(
+                        STORY.LOSE.title,
+                        STORY.LOSE.text,
+                        STORY.LOSE.btn,
+                        () => {
+                            document.location.reload()
+
+                        }
+                    );
+                } else {
+                    khsarmusic.currentTime = 0
+                    khsarmusic.play()
                     handleResetSequence();
                 }
             } else if (state.timerSecond === 0) {
                 state.gameRunning = false;
-                state.showstory= false
-
+                state.showstory = false
+                stopMusic()
+                loosmusic.play()
                 UI.showModal(
-                   STORY.TIMEOUT.title,
-                   STORY.TIMEOUT.text,
-                   STORY.TIMEOUT.btn,
+
+                    STORY.TIMEOUT.title,
+                    STORY.TIMEOUT.text,
+                    STORY.TIMEOUT.btn,
                     () => {
                         document.location.reload()
-              
+
                     }
                 );
             }
@@ -188,3 +204,15 @@ function gameLoop() {
 
 setInterval(UI.updateTimer, 1000);
 requestAnimationFrame(gameLoop)
+
+ export function playMusic() {
+
+    if (music.paused) {
+        music.play().catch(error => {
+            console.log("Autoplay blocked: User interaction required", error);
+        });
+    }
+}
+export function stopMusic() {
+    music.pause();
+}
