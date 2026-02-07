@@ -14,4 +14,5 @@ export const state = {
     currentPaddleX: 0,
     showstory: false,
     bricks: [],
+    spacedown: false,
 };
