@@ -126,3 +126,27 @@ function gameLoop(timestamp) {
 ⬅️ Left Arrow Move Paddle Left
 ➡️ Right Arrow Move Paddle Right
 SPACE Launch Ball / Start Map
+
+
+📦 How to Run Locally
+Clone the repository:
+
+Bash
+git clone [https://github.com/obenmbar/make-your-game-history.git](https://github.com/obenmbar/make-your-game-history.git)
+
+Navigate to the folder:
+
+Bash
+cd make-your-game-history
+Launch:
+
+Open index.html in any modern web browser.
+
+<div align="center">
+
+👨‍💻 Author
+Created by Othmane Benmbarek
+
+"Power levels are just numbers... until you render them in a Grid."
+
+</div>
