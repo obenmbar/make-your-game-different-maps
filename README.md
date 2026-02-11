@@ -1,10 +1,10 @@
-Markdown<div align="center">
+<div align="center">
 
-  # 🐉 Dragon Ball Z: DOM Breaker
+  # 🐉 Dragon Ball Z: Tile Breaker
   
   ![Game Banner](https://media1.tenor.com/m/fXjXyN_-CukAAAAC/dragon-ball-z-dbz.gif)
 
-  ### **A High-Performance Vanilla JS Experiment**
+  ### **A Custom Tile-Map Engine in Vanilla JS**
   
   <p>
     <a href="https://othmanebenmbarek.netlify.app/">
@@ -14,8 +14,8 @@ Markdown<div align="center">
 
   ![Netlify Status](https://api.netlify.com/api/v1/badges/b5b8276f-0925-4c72-97d8-3453d8654637/deploy-status)
   ![Language](https://img.shields.io/badge/Language-Vanilla%20JS-yellow?style=flat-square)
-  ![FPS](https://img.shields.io/badge/Performance-60%20FPS-green?style=flat-square)
-  ![Size](https://img.shields.io/badge/Size-Lightweight-blue?style=flat-square)
+  ![Architecture](https://img.shields.io/badge/Engine-Custom%20Tile%20Maps-blueviolet?style=flat-square)
+  ![Performance](https://img.shields.io/badge/Performance-60%20FPS-green?style=flat-square)
 
 </div>
 
@@ -23,53 +23,92 @@ Markdown<div align="center">
 
 ## 🚀 About The Project
 
-> *"With the passing of time... Boredom happens whenever people don't receive enough stimuli."*
+**"This isn't just a game; it's a Tile Map Engine."**
 
-You are not receiving enough stimuli. **Planet Namek is in danger.** Frieza is approaching. And the only way to save the universe (and cure your boredom) is to code your own game engine in **Vanilla JavaScript**.
+This project is a high-performance implementation of a **Tile-Based Game Engine** using pure Vanilla JavaScript. Instead of using external editors, the game features a custom-built engine that generates maps dynamically based on logic grids.
 
-**Target: 60 FPS. No Frame Drops. No Canvas. Just pure DOM power.**
+The goal was to master **Data Structures**, **DOM Rendering**, and **Asset Management** by recreating the classic Arkanoid mechanics within the Dragon Ball Z universe.
 
-This is a **Brick Breaker (Arkanoid)** style game set in the Dragon Ball Z universe. It was built as a performance challenge to master the **DOM**, **Event Loops**, and **Browser Rendering** optimization.
+---
+
+## 🎯 Project Objectives (The Challenge)
+
+This engine was built to satisfy the following strict technical requirements:
+
+* [x] **Custom Tile Engine:** No external tile editors used. The map generation logic is hard-coded from scratch.
+* [x] **Dynamic Map Generation:** Maps are rendered programmatically from 2D arrays/grids.
+* [x] **Multiple Tile Maps:** Features 3 distinct levels (Episodes), each with unique tile layouts and properties.
+* [x] **Efficient Rendering:** Optimized DOM manipulation to handle grid rendering without performance loss (60 FPS).
 
 ---
 
 ## 🎮 Play The Game
 
-Don't want to install anything? Play the live version hosted on Netlify:
+Experience the engine in action directly in your browser:
 
 ### [👉 Click Here to Play on Planet Namek](https://othmanebenmbarek.netlify.app/)
 
 ---
 
-## 📖 Story Mode: The Namek Saga
+## 🗺️ The Tile System (How it Works)
 
-Your journey follows the classic battles of Dragon Ball Z. Can you survive all three episodes?
+The core of this project is the **Map Generation System**. Instead of placing blocks manually, the game utilizes a logical grid system where each number represents a specific tile type (Brick).
 
-### **EPISODE 1: ARRIVAL**
-> *"Goku! You have arrived on Planet Namek. Frieza's soldiers are guarding the Dragon Balls."*
-* **Mission:** Defeat the soldiers to proceed!
+### Data Structure Example
+Each level is defined by a configuration object that maps logic to rendering:
 
-### **EPISODE 2: GINYU FORCE**
-> *"Good job! But Frieza has called the Ginyu Force."*
-* **Challenge:** These elite warriors have armor (Metal Bricks). Be careful!
-
-### **EPISODE 3: FINAL FORM**
-> *"You defeated the Ginyu Force! Now Frieza is angry and using his full power."*
-* **Boss Battle:** Survive the final battle against Frieza to save the universe!
-
----
-
-## 🛠️ Technical Specs (The Challenge)
-
-This project strictly adheres to the following constraints:
-
-- [x] **No Canvas / No WebGL:** All rendering is done via CSS manipulation (`transform`, `top`, `left`).
-- [x] **Performance First:** Heavy use of Chrome DevTools (Performance Tab) to ensure scripts execute under **16.6ms** per frame.
-- [x] **Input Handling:** Smooth keyboard controls (no key spamming required).
-- [x] **Memory Management:** Minimal object creation during the game loop to avoid Garbage Collection pauses.
-
-### Code Snippet: The Game Loop
 ```javascript
+// Example of the Internal Grid Logic
+const levelMap = {
+    columns: 10,
+    rows: 6,
+    // 0: Empty, 1: Weak Brick, 2: Armored Brick (Metal)
+    tiles: [
+        1, 1, 2, 2, 1, 1,
+        1, 0, 0, 0, 0, 1,
+        2, 1, 1, 1, 1, 2,
+        // ... continued pattern
+    ],
+    getTile: (col, row) => { /* logic to retrieve tile type */ }
+}
+
+Tile Types
+Tier 1 (Saibaman): Standard Brick - Destroyed in 1 hit.
+
+Tier 2 (Ginyu Force): Metal/Armored Brick - Requires multiple hits or special logic.
+
+Tier 3 (Frieza): Special layout used in the final boss fight.
+
+
+📖 Story Mode (The Maps)
+The engine renders 3 different tile maps corresponding to the DBZ Saga:
+
+MAP 1: THE ARRIVAL
+Layout: Standard grid.
+
+Objective: Clear the basic tiles to test the engine's physics.
+
+MAP 2: GINYU FORCE
+Layout: Complex pattern with "Metal Tiles" (Armored).
+
+Tech: Demonstrates collision handling against different tile properties.
+
+MAP 3: FINAL FORM
+Layout: Boss battle configuration.
+
+Tech: High-speed rendering and state management.
+
+🛠️ Technical Implementation
+Language: Vanilla JavaScript (ES6 Modules).
+
+Rendering: DOM-based Grid System (optimized with requestAnimationFrame).
+
+Collision Detection: AABB (Axis-Aligned Bounding Box) adapted for Grid/Tile collision.
+
+State Management: Custom State Store to handle Level Transitions and Brick Arrays.
+
+Code Snippet: The Game Loop
+JavaScript
 function gameLoop(timestamp) {
     if (!lastTime) lastTime = timestamp;
     const deltaTime = timestamp - lastTime;
@@ -82,6 +121,8 @@ function gameLoop(timestamp) {
     lastTime = timestamp;
     window.requestAnimationFrame(gameLoop);
 }
-🕹️ ControlsKeyAction⬅️ Left ArrowMove Goku Left➡️ Right ArrowMove Goku RightSPACELaunch Spirit Bomb (Ball)PPause / Resume GameRRestart Mission📦 How to Run LocallyIf you want to look at the code or run it on your machine:Clone the repository:Bashgit clone [https://github.com/obenmbar/make-your-game-history.git](https://github.com/obenmbar/make-your-game-history.git)
-Navigate to the folder:Bashcd make-your-game-history
-Launch:Simply double-click index.html to open it in your browser.🏆 Status<div align="center">👨‍💻 AuthorCreated by Othmane Benmbarek"This isn't even my final form!" - Frieza (and probably this code)</div>
+
+🕹️ ControlsKeyAction
+⬅️ Left Arrow Move Paddle Left
+➡️ Right Arrow Move Paddle Right
+SPACE Launch Ball / Start Map
